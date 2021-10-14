@@ -1,0 +1,40 @@
+export interface Dentpersonall {
+    person_id?:number;
+    cid?:string;
+    flname?:string;
+    hcode?:string;
+    pvcode?:string;
+    level_id?:string;
+    status_id?:string;
+    speccode?:string;
+    yearedu?:number;
+    dateupdate?:string;
+    position_id?:string;
+    denttype_id?:string;
+    yearstart?:number;
+    yearbirth?:number;
+    sex?:string;
+    }
+
+export interface Hospital36 {
+    off_id?:string;
+    off_name?:string;
+    distid?:string;
+    pointx?:string;
+    pointy?:string;
+    hos_level?:string;
+    pvcode?:string;
+    ampcode?:string;
+    tamboncode?:string;
+    hossector?:string;
+    tel?:string;
+    hosheader?:string;
+    nurse1?:string;
+    nurse2?:string;
+    dob?:string;
+    daydischarge?:number;
+    pincode?:string;
+    email?:string;
+    bed?:number;
+    bedremain?:number
+    }

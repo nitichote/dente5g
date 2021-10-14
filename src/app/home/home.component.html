@@ -1,1 +1,200 @@
 <p>home works!</p>
+<div class="container">
+  <p-table
+    [value]="dentps"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    responsiveLayout="scroll"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[10, 25, 50]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>โรงพยาบาล</th>
+        <th>ชื่อ</th>
+        <th>เฉพาะทาง</th>
+        <th>วุฒิการศึกษา</th>
+        <th>...</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-p>
+      <tr>
+        <td>{{ p.hosname }}</td>
+        <td>{{ p.flname }}</td>
+        <td>{{ p.specname }}</td>
+        <td>{{ p.slevelname }}</td>
+        <td>
+          <button
+            class="btn btn-sm bg-light-primary border-round"
+            title="ดูข้อมูล"
+          >
+            <i class="pi pi-search icon-light-primary"></i>
+          </button>
+          <button
+            class="btn btn-sm bg-light-secondary border-round"
+            title="แก้ไขข้อมูล"
+            (click)="editPerson(p)"
+          >
+            <i class="pi pi-user-edit icon-light-secondary"></i>
+          </button>
+          <button
+            class="btn btn-sm bg-light-danger border-round"
+            title="ลบข้อมูล"
+          >
+            <i class="pi pi-trash icon-light-danger"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <div class="row g-5">
+    <div class="col-sm-4">
+      <a
+        href="#"
+        class="card bg-light-success hoverable min-h-125px shadow-none mb-5"
+      >
+        <div class="card-body d-flex flex-column flex-center">
+          <h3 class="fs-3 mb-2 text-dark fw-bolder">Security</h3>
+          <p class="mb-0 text-gray-600">$2.99/month</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <a
+        href="#"
+        class="card bg-light-danger hoverable min-h-125px shadow-none mb-5"
+      >
+        <div class="card-body d-flex flex-column flex-center text-center">
+          <h3 class="fs-3 mb-2 text-dark fw-bolder">Demo</h3>
+          <p class="mb-0 text-gray-600">Free Version</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <a
+        href="#"
+        class="card bg-light-warning hoverable min-h-125px shadow-none mb-5"
+      >
+        <div class="card-body d-flex flex-column flex-center text-center">
+          <h3 class="fs-3 mb-2 text-dark text-hover-primary fw-bolder">
+            Try Now
+          </h3>
+          <p class="mb-0 text-gray-600">Pro Version</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<p-button
+  (click)="showModalDialog()"
+  icon="pi pi-external-link"
+  label="Show"
+></p-button>
+<p-dialog
+  header="Header"
+  [(visible)]="displayModal"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <! –– แถวที่1 ––>
+  <div class="row">
+    <div class="col-sm">
+      <div class="form-group">
+        <label for="hcode">หน่วยงาน</label>
+        <input
+        type="text"
+        name="hcode"
+        id="hcode"
+        [(ngModel)]="dp.hcode"
+        class="form-control"
+        placeholder=""
+        aria-describedby="helpId"
+      />
+      </div>
+    </div>
+  </div>
+  <! –– แถวที่2 ––>
+  <div class="row">
+    <div class="col-sm">
+      <div class="form-group">
+        <label for="flname">ชื่อ สกุล</label>
+        <input
+          type="text"
+          name="flname"
+          id="flname"
+          [(ngModel)]="dp.flname"
+          class="form-control"
+          placeholder=""
+          aria-describedby="helpId"
+        />
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="form-group">
+        <label for="sex">เพศ</label>
+        <p-dropdown [options]="sexOptions" [(ngModel)]="dp.sex"></p-dropdown>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="form-group">
+        <label for="yearbirth">ปีพศ.เกิด</label>
+        <input
+          type="text"
+          name="yearbirth"
+          id="yearbirth"
+          [(ngModel)]="dp.yearbirth"
+          class="form-control"
+          placeholder=""
+          aria-describedby="helpId"
+        />
+      </div>
+    </div>
+  </div>
+  <! –– แถวที่3 ––>
+  <div class="row">
+    <div class="col-sm">
+      <div class="form-group">
+        <label for="cid">CID</label>
+        <input
+          type="text"
+          name="cid"
+          id="cid"
+          [(ngModel)]="dp.cid"
+          class="form-control"
+          placeholder=""
+          aria-describedby="helpId"
+        />
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="form-group">
+        <label for="denttype_id">ประเภท</label>
+        <p-dropdown
+          [options]="denttype_idOptions"
+          [(ngModel)]="dp.denttype_id"
+        ></p-dropdown>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="form-group">
+        <label for="position_id">ตำแหน่ง</label>
+        <p-dropdown
+          [options]="position_idOptions"
+          [(ngModel)]="dp.position_id"
+        ></p-dropdown>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="displayModal = false"
+      label="Ok"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>
