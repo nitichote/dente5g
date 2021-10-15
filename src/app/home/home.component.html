@@ -135,22 +135,19 @@
     </div>
     <div class="col-sm">
       <div class="form-group">
-        <label for="sex">เพศ</label>
-        <p-dropdown [options]="sexOptions" [(ngModel)]="dp.sex"></p-dropdown>
+       <div><label for="sex">เพศ</label></div> 
+       <div> <p-dropdown  name="sex" [style]="{'width':'100%','height':'80%'}" [options]="sexOptions" [(ngModel)]="dp.sex"></p-dropdown></div>
       </div>
     </div>
     <div class="col-sm">
       <div class="form-group">
         <label for="yearbirth">ปีพศ.เกิด</label>
-        <input
-          type="text"
-          name="yearbirth"
-          id="yearbirth"
-          [(ngModel)]="dp.yearbirth"
-          class="form-control"
-          placeholder=""
-          aria-describedby="helpId"
-        />
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Open this select menu</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
       </div>
     </div>
   </div>
@@ -176,6 +173,7 @@
         <p-dropdown
           [options]="denttype_idOptions"
           [(ngModel)]="dp.denttype_id"
+         
         ></p-dropdown>
       </div>
     </div>
@@ -190,11 +188,9 @@
     </div>
   </div>
   <ng-template pTemplate="footer">
-    <p-button
-      icon="pi pi-check"
-      (click)="displayModal = false"
-      label="Ok"
-      styleClass="p-button-text"
-    ></p-button>
+    <button class="btn bg-light-info"  (click)="doSave(dp)">
+      บันทึก</button>
+      <button class="btn bg-light-danger"  (click)="doCancel(dp)">
+        ยกเลิก</button>
   </ng-template>
 </p-dialog>

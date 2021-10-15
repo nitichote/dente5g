@@ -22,16 +22,20 @@ export class HomeComponent implements OnInit {
   modalTitle = "เพิ่มข้อมูล";
   office = "10702";
   offices: any = [];
-  level_idOptions: SelectItem[] | undefined;
-  degnameOptions: SelectItem[] | undefined;
-  position_idOptions: SelectItem[] | undefined;
-  lstatusOptions: SelectItem[] | undefined
-  sexOptions: SelectItem[] | undefined;
-  denttype_idOptions: SelectItem[] | undefined;
-  sitem: SelectItem | undefined;
+  level_idOptions!: SelectItem[];
+  degnameOptions!: SelectItem[] ;
+  position_idOptions!: SelectItem[];
+  lstatusOptions!: SelectItem[] ;
+  sexOptions!: SelectItem[];
+  denttype_idOptions!: SelectItem[];
+  sitem!: SelectItem;
+  personClone:any;
+  oldrow:any;
   editPerson(ob:any) {
-  
-this.dp ={
+    this.oldrow ={...ob};
+  this.dp={...ob};
+  this.personClone = {...ob};
+/* this.dp ={
   person_id:ob.person_id,
   cid:ob.cid,
   flname:ob.flname,
@@ -47,7 +51,7 @@ this.dp ={
   yearstart:ob.yearstart,
   yearbirth:ob.yearbirth,
   sex:ob.sex,
-  }
+  } */
   
     console.log("dp=",this.dp);
     
@@ -55,6 +59,16 @@ this.dp ={
     this.action = "edit";
     this.showModalDialog();
   }
+  doCancel(dp:any){
+    //  this.dp = this.personClone;
+      dp = {...this.personClone};
+      this.displayModal=false;
+    }
+    doSave(dp:any){
+      this.dp = {...dp};
+console.log("newDP=",dp);
+this.displayModal=false;
+      }
   showModalDialog() {
     this.displayModal = true;
 }
@@ -64,7 +78,9 @@ this.dp ={
      console.log(this.dentps);
      
       });
-    }
+     
+    } 
+   
   ngOnInit(): void {
    // console.log(Object.keys(this.dp));
   
