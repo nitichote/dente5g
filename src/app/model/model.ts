@@ -6,7 +6,7 @@ export interface Dentpersonall {
     pvcode?:string;
     level_id?:string;
     status_id?:string;
-    speccode?:string;
+    spectype_id?:string;
     yearedu?:number;
     dateupdate?:string;
     position_id?:string;

@@ -9,6 +9,8 @@ import {DropdownModule} from 'primeng/dropdown';
 import { MenuModule } from 'primeng/menu';
 import {ToolbarModule} from 'primeng/toolbar';
 import {CalendarModule} from 'primeng/calendar';
+import {FileUploadModule} from 'primeng/fileupload';
+
 /* import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
@@ -16,12 +18,12 @@ import { thLocale } from 'ngx-bootstrap/locale'; */
 import { DialogModule } from 'primeng/dialog';
 @NgModule({
   declarations: [],
-  imports: [DialogModule,TableModule, MenuModule,CalendarModule,
+  imports: [FileUploadModule,DialogModule,TableModule, MenuModule,CalendarModule,
     CommonModule,MessagesModule,MessageModule,DropdownModule,
     FormsModule,
     CommonModule
   ],
-  exports: [DialogModule,TableModule, MenuModule,CalendarModule,
+  exports: [FileUploadModule,DialogModule,TableModule, MenuModule,CalendarModule,
     CommonModule,MessagesModule,MessageModule,DropdownModule,
     FormsModule
    

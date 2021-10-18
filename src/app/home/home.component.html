@@ -11,6 +11,7 @@
   >
     <ng-template pTemplate="header">
       <tr>
+        <th>#</th>
         <th>โรงพยาบาล</th>
         <th>ชื่อ</th>
         <th>เฉพาะทาง</th>
@@ -18,8 +19,9 @@
         <th>...</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-p>
-      <tr>
+    <ng-template pTemplate="body" let-p let-i="rowIndex">
+      <tr class="rowcute  rowcutetable">
+        <td><div align="center" class="bg-green-10 color-green rowindex">{{ i+1}}</div></td>
         <td>{{ p.hosname }}</td>
         <td>{{ p.flname }}</td>
         <td>{{ p.specname }}</td>
@@ -93,32 +95,85 @@
   label="Show"
 ></p-button>
 <p-dialog
-  header="Header"
+  header="ข้อมูลบุคลากร"
   [(visible)]="displayModal"
   [modal]="true"
-  [style]="{ width: '50vw' }"
+  [style]="{ width: '70vw' }"
   [draggable]="false"
-  [resizable]="false"
+  [resizable]="true"
 >
+<div class="row">
+  <div class="col-sm">
+  <div class="card">
+    <img class="card-img-top" src="holder.js/100x180/" alt="">
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-3">
+            <div align="center"> <div><img src="assets/pic/tom.jpg" class="img-thumbnail picthumb" alt="...">
+            </div> <div> <a href="javascript:void(0)" (click)="isupload=true" > Upload รูป</a></div></div>
+          </div>
+           <div class="col-9">
+            <div> <p-fileUpload *ngIf="isupload" name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
+            accept="image/*"  >
+            <ng-template pTemplate="content">
+                <ul *ngIf="uploadedFiles.length">
+                    <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                </ul>
+            </ng-template>
+      </p-fileUpload> </div>
+          </div>
+        </div>
+      </div>
+     
+     
+     
+      
+    </div>
+  </div>  
+  </div>
+    </div>
   <! –– แถวที่1 ––>
-  <div class="row">
-    <div class="col-sm">
-      <div class="form-group">
-        <label for="hcode">หน่วยงาน</label>
-        <input
-        type="text"
-        name="hcode"
-        id="hcode"
-        [(ngModel)]="dp.hcode"
-        class="form-control"
-        placeholder=""
-        aria-describedby="helpId"
-      />
+  <div class="row my-3 py-1 rowcute bg-green-5 "  >
+   
+    <div class="col-sm"> <div class="form-group">
+      <div><label for="pvcode">จังหวัด</label></div>
+      <div>
+        <p-dropdown
+          [options]="pvs"
+          [(ngModel)]="selectPv"
+          (onChange)="doFilterPv($event)"
+          optionLabel="pvname"
+          optionValue="pvcode"   [style]="{ width: '100%' }"
+        ></p-dropdown>
       </div>
     </div>
   </div>
+  <div class="col-sm"> <div class="form-group">
+      <div><label for="ampcode">อำเภอ</label></div>
+      <div>
+        <p-dropdown
+          [options]="amps"
+          [(ngModel)]="selectAmp"
+          (onChange)="doFilterAmp($event)"
+          optionLabel="ampname"
+          optionValue="ampcode"   [style]="{ width: '100%' }"
+        ></p-dropdown>
+      </div></div></div>
+      <div class="col-sm"> <div class="form-group">
+      <div><label for="hcode">หน่วยงาน</label></div>
+      <div>
+        <p-dropdown
+          [options]="hoss"
+          [(ngModel)]="selectHos"
+          optionLabel="hname"
+          optionValue="hcode"   [style]="{ width: '100%' }"
+        ></p-dropdown>
+      </div></div></div>
+    </div>
+  
   <! –– แถวที่2 ––>
-  <div class="row">
+  <div class="row my-3 py-1 rowcute bg-green-10 ">
     <div class="col-sm">
       <div class="form-group">
         <label for="flname">ชื่อ สกุล</label>
@@ -135,24 +190,36 @@
     </div>
     <div class="col-sm">
       <div class="form-group">
-       <div><label for="sex">เพศ</label></div> 
-       <div> <p-dropdown  name="sex" [style]="{'width':'100%','height':'80%'}" [options]="sexOptions" [(ngModel)]="dp.sex"></p-dropdown></div>
+        <div><label for="sex">เพศ</label></div>
+        <div>
+          <p-dropdown
+            name="sex"
+            [style]="{ width: '100%' }"
+            [options]="sexOptions"
+            [(ngModel)]="dp.sex"
+            optionLabel="label"
+            optionValue="value"
+          ></p-dropdown>
+        </div>
       </div>
     </div>
     <div class="col-sm">
       <div class="form-group">
         <label for="yearbirth">ปีพศ.เกิด</label>
-        <select class="form-select" aria-label="Default select example">
-          <option selected>Open this select menu</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
+        <input
+          type="text"
+          name="yearbirth"
+          id="yearbirth"
+          [(ngModel)]="dp.yearbirth"
+          class="form-control"
+          placeholder="ปีพศ.4หลัก"
+          aria-describedby="helpId"
+        />
       </div>
     </div>
   </div>
   <! –– แถวที่3 ––>
-  <div class="row">
+  <div class="row my-3 py-1 rowcute bg-green-15 ">
     <div class="col-sm">
       <div class="form-group">
         <label for="cid">CID</label>
@@ -169,28 +236,114 @@
     </div>
     <div class="col-sm">
       <div class="form-group">
-        <label for="denttype_id">ประเภท</label>
-        <p-dropdown
-          [options]="denttype_idOptions"
-          [(ngModel)]="dp.denttype_id"
-         
-        ></p-dropdown>
+        <div><label for="denttype_id">ประเภท</label></div>
+        <div>
+          <p-dropdown
+            [options]="denttype_idOptions"
+            [(ngModel)]="dp.denttype_id"
+            [style]="{ width: '100%' }"
+            optionLabel="label"
+            optionValue="value"
+          ></p-dropdown>
+        </div>
       </div>
     </div>
     <div class="col-sm">
       <div class="form-group">
-        <label for="position_id">ตำแหน่ง</label>
-        <p-dropdown
-          [options]="position_idOptions"
-          [(ngModel)]="dp.position_id"
-        ></p-dropdown>
+        <div><label for="position_id">ตำแหน่ง</label></div>
+        <div>
+          <p-dropdown
+            [options]="position_idOptions"
+            [(ngModel)]="dp.position_id"
+            [style]="{ width: '100%' }"
+            optionLabel="label"
+            optionValue="value"
+          ></p-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="form-group">
+        <label for="yearstart">ปีที่เข้าทำงานราชการ</label>
+        <input
+          type="text"
+          name="yearstart"
+          id="yearstart"
+          [(ngModel)]="dp.yearstart"
+          class="form-control"
+          placeholder="ปีพศ.4หลัก"
+          aria-describedby="helpId"
+        />
+      </div>
+    </div>
+  </div>
+  <! –– แถวที่4 ––>
+  <div class="row my-3 py-1 rowcute bg-green-10 ">
+    <div class="col-sm">
+      <div class="form-group">
+        <div><label for="denttype_id">ทันตแพทย์เฉพาะทาง</label></div>
+        <div>
+          <p-dropdown
+            [options]="spectype_idOptions"
+            [(ngModel)]="dp.spectype_id"
+            [style]="{ width: '100%' }"
+            optionLabel="label"
+            optionValue="value"
+          ></p-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="form-group">
+        <label for="yearedu">ปีที่ไปเรียน</label>
+        <input
+          type="text"
+          name="yearedu"
+          id="yearedu"
+          [(ngModel)]="dp.yearedu"
+          class="form-control"
+          placeholder="ปีพศ.4หลัก เช่น 2564"
+          aria-describedby="helpId"
+        />
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="form-group">
+        <div><label for="position_id">สถานะปัจจุบัน</label></div>
+        <div>
+          <p-dropdown
+            [options]="status_idOptions"
+            [(ngModel)]="dp.status_id"
+            [style]="{ width: '100%' }"
+            optionLabel="label"
+            optionValue="value"
+          ></p-dropdown>
+        </div>
       </div>
     </div>
   </div>
   <ng-template pTemplate="footer">
-    <button class="btn bg-light-info"  (click)="doSave(dp)">
-      บันทึก</button>
-      <button class="btn bg-light-danger"  (click)="doCancel(dp)">
-        ยกเลิก</button>
+    <button class="btn bg-light-info" (click)="doSave(dp)">บันทึก</button>
+    <button class="btn bg-light-danger" (click)="doCancel(dp)">ยกเลิก</button>
   </ng-template>
 </p-dialog>
+
+<div class="row">
+  <div class="col-2">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Title</h3>
+        <p class="card-text">Text</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-10">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Title</h3>
+        <p class="card-text">Text</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div></div>

@@ -9,14 +9,13 @@ import * as m from "../model/model";
   providedIn: "root",
 })
 export class ApiChoteService {
-
+public df_pvcode="";
   public isLogin = false;
   public isAdminLogin = false;
   h!:m.Hospital36;
   public loglevel=99;
   public isAdmin=false;
   getLogStatus(){
-
 
   }
   async getLogin(user:string,pass:string) {
@@ -112,10 +111,22 @@ console.log(api2020);
 
    return await this.http.get(api2020).toPromise();
   }
+  async getDfVars() {
+    let api2020 =  this.api+ "dfvars";
+  return await this.http.get(api2020).toPromise();
+ }
   async getDentps() {
      let api2020 =  this.api+ "dentps";
    return await this.http.get(api2020).toPromise();
   }
+  async getHospitals() {
+    let api2020 =  this.api+ "hospitals";
+  return await this.http.get(api2020).toPromise();
+ }
+ async getCodetables() {
+  let api2020 =  this.api+ "codetables";
+return await this.http.get(api2020).toPromise();
+}
   async getpts() {
     //const url =
    //   "https://dmfzero.com/apileaf/apis.php/dentalkpi/dentreporttemplate/hdc";
